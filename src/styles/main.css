@@ -31,4 +31,7 @@ $footer: #15235F; */
         0 3px 4px rgb(145, 145, 145);
     text-transform: uppercase;
 }
+.index__texto {
+    font-family:  Helvetica,Arial, sans-serif;
+}
     
