@@ -1,6 +1,5 @@
-import React from 'react'
-import { useContext } from 'react'
-import { Redirect } from 'react-router-dom';
+import React, { useContext} from 'react'
+import { Redirect, useHistory } from 'react-router-dom';
 import { LoginContext } from '../../context/LoginContext'
 import { escuelas } from '../../helpers/escuelas';
 import { useForm } from '../../hooks/useForm';
@@ -9,6 +8,10 @@ import { Header } from './Header';
 export const Alumnos = () => {
 
     const { login: data } = useContext(LoginContext);
+
+    const history = useHistory();
+
+    
     
 
     const bachilleratos = escuelas; 
@@ -34,10 +37,25 @@ export const Alumnos = () => {
         );
     }
 
-    const handlerOnsubmit = (ev)=>{
+    const handlerOnsubmit = async(ev)=>{
         ev.preventDefault();
-        console.log(formState);
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formState)
+        }
+        const response= await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
+        const data = await response.json();
+        console.log(response.status);
+        if(response.status === 200){
+            console.log('ingreso')
+            history.replace('/cita');
+           
+        }
+        console.log(data)
     }
+    
     return (
         <>
             <Header />
@@ -110,6 +128,12 @@ export const Alumnos = () => {
                     <button type="submit" className="btn btn-success">Guardar Datos</button>
                 </div>
             </form>
+
+            
+            
+
+            
+            
         </div>
         </>
     )

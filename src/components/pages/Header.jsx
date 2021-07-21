@@ -1,15 +1,9 @@
 import React , {useContext} from 'react'
-import { useEffect } from 'react';
 import { LoginContext } from '../../context/LoginContext'
 
 export const Header = () => {
     const { login } = useContext(LoginContext);
     
-    useEffect(()=>{
-        
-        console.log('Headers',login);
-    },[login])
-
     return (
         <>
         
