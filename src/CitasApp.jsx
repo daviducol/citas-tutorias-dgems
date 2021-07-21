@@ -1,17 +1,14 @@
-import { Index } from "./components/pages/Index"
+
+import { LoginProvider } from "./context/LoginContext"
+import { CitasRouter } from "./routes/CitasRouter"
 
 
 
 
 export const CitasApp = () => {
     return (
-        <div>
-            <nav className="navbar navbar-light bg-dgems">
-                <div className="container-fluid">
-                    <span className="header_text">Tutorias DGEMS</span>
-                </div>
-            </nav>
-            <Index />
-        </div>
+       <LoginProvider>
+           <CitasRouter />
+       </LoginProvider>
     )
 }

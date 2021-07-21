@@ -1,14 +1,23 @@
 import React from 'react'
+import { useContext } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import { useHistory } from 'react-router-dom';
+import { LoginContext } from '../../context/LoginContext';
 
 
 export const Login = () => {
+
+    const history = useHistory();
+
+    const { setLogin } = useContext(LoginContext);
 
     const responseGoogle = (resp) => {
         if (!resp.profileObj) {
             return console.log('error',)
         }
-        console.log('ingreso', resp.profileObj.email)
+        setLogin(resp.profileObj)
+        console.log(resp.profileObj)
+        history.push('/alumnos');
 
     }
     // const logout = (res) => {

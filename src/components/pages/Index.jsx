@@ -1,8 +1,10 @@
 import { Login } from "../auth/Login"
+import { Header } from "./Header"
 
 export const Index = () => {
     return (
         <>
+           <Header />
             <div className="index__caja">
                 <div className="row">
                     <div className="col">
