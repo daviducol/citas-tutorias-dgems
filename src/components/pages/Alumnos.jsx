@@ -1,4 +1,5 @@
 import React, { useContext} from 'react'
+
 import { Redirect, useHistory } from 'react-router-dom';
 import { LoginContext } from '../../context/LoginContext'
 import { escuelas } from '../../helpers/escuelas';
@@ -10,9 +11,6 @@ export const Alumnos = () => {
     const { login: data } = useContext(LoginContext);
 
     const history = useHistory();
-
-    
-    
 
     const bachilleratos = escuelas; 
 
@@ -45,7 +43,8 @@ export const Alumnos = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formState)
         }
-        const response= await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
+        // const response= await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
+        const response= await fetch('http://localhost:3500/api/alumnos', requestOptions);
         const data = await response.json();
         console.log(response.status);
         if(response.status === 200){
