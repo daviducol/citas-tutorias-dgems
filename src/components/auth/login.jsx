@@ -9,29 +9,32 @@ export const Login = () => {
 
     const history = useHistory();
 
-    const { setLogin } = useContext(LoginContext);
+    const { setLogin, setAlumno } = useContext(LoginContext);
 
-    const responseGoogle =async (resp) => {
+    const responseGoogle = async (resp) => {
         if (!resp.profileObj) {
             return console.log('error',)
         }
         setLogin(resp.profileObj)
         // console.log(resp.profileObj)
-       
+
 
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         }
-        // const response= await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
-        const response= await fetch(`http://localhost:3500/api/alumnos/email?correo=${ resp.profileObj.email }`, {requestOptions});
+        const response = await fetch(`http://localhost:3500/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
+        // const response = await fetch(`https://citas-tutorias-dgems.herokuapp.com/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
         const data = await response.json();
         console.log(response);
         console.log(data);
-        if(data.err){
+        if (data.err) {
             console.log('exite correo')
+            console.log(data.estudiante);
+            setAlumno(data.estudiante);
+
             history.replace('/cita');
-        }else{
+        } else {
             history.push('/alumnos');
         }
 
