@@ -9,7 +9,7 @@ export const Login = () => {
 
     const history = useHistory();
 
-    const { setLogin, setAlumno } = useContext(LoginContext);
+    const { setLogin, setAlumno, setMaestros } = useContext(LoginContext);
 
     const responseGoogle = async (resp) => {
         if (!resp.profileObj) {
@@ -18,25 +18,39 @@ export const Login = () => {
         setLogin(resp.profileObj)
         // console.log(resp.profileObj)
 
-
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        }
-        const response = await fetch(`http://localhost:3500/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
-        // const response = await fetch(`https://citas-tutorias-dgems.herokuapp.com/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
-        const data = await response.json();
-        console.log(response);
-        console.log(data);
-        if (data.err) {
-            console.log('exite correo')
-            console.log(data.estudiante);
-            setAlumno(data.estudiante);
-
-            history.replace('/cita');
+        if (resp.profileObj.email === 'davidglez.ucol@gmail.com') {
+            const responseMaestros = await fetch('http://192.168.0.15:3500/api/maestros');
+            const dataMaestros = await responseMaestros.json();
+            setMaestros(dataMaestros)
+            history.replace('/admin');
         } else {
-            history.push('/alumnos');
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            }
+            const response = await fetch(`http://192.168.0.15:3500/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
+            // const response = await fetch(`https://citas-tutorias-dgems.herokuapp.com/api/alumnos/email?correo=${resp.profileObj.email}`, { requestOptions });
+            const responseMaestros = await fetch('http://192.168.0.15:3500/api/maestros');
+            const dataMaestros = await responseMaestros.json();
+
+            // console.log(dataMaestros);
+            const data = await response.json();
+            // console.log(response);
+            // console.log(data);
+            setMaestros(dataMaestros)
+
+            if (data.err) {
+                // console.log('exite correo')
+                // console.log(data.estudiante);
+                setAlumno(data.estudiante);
+
+                history.replace('/cita');
+            } else {
+                history.push('/alumnos');
+            }
+
         }
+
 
 
     }

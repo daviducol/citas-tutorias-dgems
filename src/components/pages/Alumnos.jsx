@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 
+
 import { Redirect, useHistory } from 'react-router-dom';
 import { LoginContext } from '../../context/LoginContext'
 import { escuelas } from '../../helpers/escuelas';
@@ -27,7 +28,6 @@ export const Alumnos = () => {
     const { nombre, apellidos, genero, correo, bachillerato, grado, grupo } = formState;
 
 
-
     if (!data.familyName) {
         console.log(data)
         return (
@@ -44,7 +44,7 @@ export const Alumnos = () => {
             body: JSON.stringify(formState)
         }
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
-        const response = await fetch('http://localhost:3500/api/alumnos', requestOptions);
+        const response = await fetch('http://192.168.0.15:3500/api/alumnos', requestOptions);
         await response.json();
         console.log(response.status);
         if (response.status === 200) {
@@ -102,11 +102,12 @@ export const Alumnos = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputEscuela" className="col-sm-2 col-form-label">Escuela</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputEscuela" name="bachillerato" value={bachillerato} onChange={handlerOnChange} >
+                            <select className="form-select" aria-label="Default select example" id="inputEscuela" name="bachillerato" value={bachillerato}
+                                onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
                                     bachilleratos.map((bachi) => (
-                                        <option key={bachi.escuela} value={bachi.escuela}>{bachi.escuela}</option>
+                                        <option key={bachi.escuela} value={bachi.escuela} >{bachi.escuela}</option>
                                     ))
                                 }
                             </select>
@@ -128,9 +129,10 @@ export const Alumnos = () => {
                         <div className="col-sm-8">
                             <select className="form-select" aria-label="Default select example" id="inputGrupo" name="grupo" value={grupo} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
-                                <option value="A">Grupo A</option>
-                                <option value="B">Grupo B</option>
-                                <option value="C">Grupo C</option>
+                                {
+                                    bachilleratos.map(resp => resp.escuela === bachillerato
+                                        && resp.grupos.map(g => <option key={g}>{g}</option>))
+                                }
                             </select>
                         </div>
                     </div>
