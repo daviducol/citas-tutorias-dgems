@@ -42,7 +42,7 @@ export const Maestros = () => {
             body: JSON.stringify(datosRecuperados)
         }
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
-        const response = await fetch('http://192.168.0.15:3500/api/maestros', requestOptions);
+        const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/maestros', requestOptions);
         const data = await response.json();
         console.log(data);
         console.log(response.status);
@@ -101,7 +101,7 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputDependencia" className="col-sm-2 col-form-label">Escuela</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputDependencia" name="dependencia" value={dependencia} onChange={handlerOnChange} >
+                            <select className="form-select" required aria-label="Default select example" id="inputDependencia" name="dependencia" value={dependencia} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
                                     bachilleratos.map((bachi) => (
@@ -120,7 +120,7 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputEstudios" className="col-sm-2 col-form-label">Grado de estudios: </label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputEstudios" name="gradoEstudios" value={gradoEstudios} onChange={handlerOnChange} >
+                            <select className="form-select" required  aria-label="Default select example" id="inputEstudios" name="gradoEstudios" value={gradoEstudios} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
                                     escolaridad.map((grado) => (
@@ -139,7 +139,7 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputLigasMeet" className="col-sm-2 col-form-label">Ligas Meet: </label>
                         <div className="col-sm-8">
-                            <textarea required className="form-control" id="inputLigasMeet" name="ligasMeet" value={ligasMeet} onChange={handlerOnChange}>
+                            <textarea required className="form-control" style={{ height: 150, resize: 'none' }} id="inputLigasMeet" name="ligasMeet" value={ligasMeet} onChange={handlerOnChange}>
                             </textarea>
                         </div>
                     </div>

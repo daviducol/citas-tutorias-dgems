@@ -44,7 +44,7 @@ export const Alumnos = () => {
             body: JSON.stringify(formState)
         }
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
-        const response = await fetch('http://192.168.0.15:3500/api/alumnos', requestOptions);
+        const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
         await response.json();
         console.log(response.status);
         if (response.status === 200) {

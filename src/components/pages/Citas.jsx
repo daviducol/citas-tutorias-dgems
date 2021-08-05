@@ -20,13 +20,15 @@ export const Citas = () => {
     const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-
+    console.log(month);
 
     if (month > 9) {
         fechaActual = `${year}-${month}-${day}`;
-    } else {
+    } else if (day > 9 ){
         fechaActual = `${year}-0${month}-${day}`;
-
+        console.log(fechaActual);
+    }else{
+        fechaActual = `${year}-0${month}-0${day}`;
     }
 
     // console.log(dataMaestros)
@@ -49,7 +51,7 @@ export const Citas = () => {
         console.log(maestro);
 
         const clave = dataMaestros.maestros.filter(resp => (`${resp.apellidos.trim()} ${resp.nombre.trim()}` === maestro.trim()))
-
+        console.log(clave);
 
         const crearCita = {
             ...formState,
@@ -77,7 +79,7 @@ export const Citas = () => {
             body: JSON.stringify(eviarCorreo)
         }
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
-        const response = await fetch('http://192.168.0.15:3500/api/citas', requestOptions);
+        const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/citas', requestOptions);
         const dataCita = await response.json();
         console.log(dataCita);
         // console.log(response.status);
@@ -85,7 +87,7 @@ export const Citas = () => {
         // console.log(dataEmail);
         if (response.status === 200) {
             console.log('ingreso')
-            const responseEmail = await fetch('http://192.168.0.15:3500/api/correo/send-email', requestEmail);
+            const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail);
             await responseEmail.json();
             setLogin([]);
             setAlumno([]);
@@ -96,7 +98,7 @@ export const Citas = () => {
                 setError(false)
             }, 3500)
         }
-        // console.log(data)
+        console.log(data)
     }
 
 

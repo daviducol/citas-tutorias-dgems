@@ -30,7 +30,7 @@ export const Historial = () => {
         const clave = dataMaestros.maestros.filter(resp => (`${resp.apellidos.trim()} ${resp.nombre.trim()}` === maestro.trim()))
 
 
-        const responseHistorial = await fetch(`http://192.168.0.15:3500/api/citas/historial?numTrabajador=${clave[0]?.numTrabajador}`)
+        const responseHistorial = await fetch(`https://citas-tutorias-dgems.herokuapp.com/api/citas/historial?numTrabajador=${clave[0]?.numTrabajador}`)
         const dataHistorial = await responseHistorial.json();
         console.log(dataHistorial)
         console.log(responseHistorial.status)
@@ -109,7 +109,7 @@ export const Historial = () => {
                                 ))
                             }
                             <tr>
-                                <td colSpan="5" className="text-center"><strong>Total de citas <span className="text-primary">{dataHistory.citashistorial.length}</span> </strong></td>
+                                <td colSpan="5" className="text-center"><strong><span className="text-primary">{dataHistory.citashistorial.length} </span> </strong>{dataHistory.citashistorial.length > 1 ? 'citas realizadas' : 'cita realizada'} </td>
                             </tr>
                         </tbody>
                     </table>
