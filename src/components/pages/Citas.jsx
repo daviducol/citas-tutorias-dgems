@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Redirect, useHistory } from 'react-router-dom';
-import { LoginContext } from '../../context/LoginContext';
 
+import Swal from 'sweetalert2';
+import { LoginContext } from '../../context/LoginContext';
 import { Header } from './Header'
 import { useForm } from '../../hooks/useForm';
 
@@ -10,7 +11,7 @@ import { useForm } from '../../hooks/useForm';
 
 export const Citas = () => {
     const history = useHistory();
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
 
 
     const { login: data, alumno: estudiante, setLogin, setAlumno, maestros: dataMaestros } = useContext(LoginContext);
@@ -55,7 +56,7 @@ export const Citas = () => {
 
         const crearCita = {
             ...formState,
-            ligasMeet: 'http://liga1.com.mx',
+            ligasMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
             correoAlumno: estudiante.email,
             numTrabajador: clave[0].numTrabajador,
         }
@@ -68,7 +69,7 @@ export const Citas = () => {
         }
         const eviarCorreo = {
             correo: estudiante.email,
-            ligaMeet: 'http://liga1.com.mx',
+            ligaMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
             maestro: formState.maestro,
             fecha: formState.fecha,
             hora: formState.hora,
@@ -91,12 +92,30 @@ export const Citas = () => {
             await responseEmail.json();
             setLogin([]);
             setAlumno([]);
-            history.replace('/home');
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Cita agendada',
+            //     text: 'verifica tu correo',
+            //     showConfirmButton: false,
+            //     timer: 2000,
+            //     allowOutsideClick: false
+            // });
+            history.replace('/cita-agendada');
+            // setTimeout(()=>{
+            // },5000)
         } else {
-            setError(true)
-            setTimeout(() => {
-                setError(false)
-            }, 3500)
+            // setError(true)
+            Swal.fire({
+                icon: 'error',
+                title: 'Horario no disponible',
+                text: 'Intenta en entro horario',
+                showConfirmButton: false,
+                timer: 2800,
+                allowOutsideClick: false
+            });
+            // setTimeout(() => {
+            //     setError(false)
+            // }, 3500)
         }
         console.log(data)
     }
@@ -126,13 +145,13 @@ export const Citas = () => {
             </div>
             {/* Formulario para la cita */}
             <div className="container mt-5">
-                {
+                {/* {
                     (error) && (
                         <div className="alert alert-danger text-center animate__animated animate__fadeIn" role="alert">
                             <strong> Horario no disponible</strong>
                         </div>
                     )
-                }
+                } */}
 
                 <form onSubmit={agendarCita}>
                     <div className="mb-3 row">
@@ -149,15 +168,15 @@ export const Citas = () => {
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputNombre" className="col-sm-2 col-form-label">Fecha</label>
+                        <label htmlFor="inputFecha" className="col-sm-2 col-form-label">Fecha</label>
                         <div className="col-sm-8">
-                            <input type="date" min={`${fechaActual}`} max="2021-12-15" className="form-control" id="inputNombre" name="fecha" value={fecha} onChange={handlerOnChange} />
+                            <input type="date" min={`${fechaActual}`} max="2021-12-15" className="form-control" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputNombre" className="col-sm-2 col-form-label">Hora</label>
+                        <label htmlFor="inputHora" className="col-sm-2 col-form-label">Hora</label>
                         <div className="col-sm-8">
-                            <input type="time" step="1800" min="09:00" max="13:00" required className="form-control" id="inputNombre" name="hora" value={hora} onChange={handlerOnChange} />
+                            <input type="time" step="1800" min="09:00" max="13:00" required className="form-control" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">

@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom';
 
+import Swal from 'sweetalert2'
+// import withReactContent from 'sweetalert2-react-content'
+
 import { Header } from './Header';
 import { useForm } from '../../hooks/useForm';
 import { escuelas, escolaridad } from '../../helpers/escuelas';
@@ -27,6 +30,9 @@ export const Maestros = () => {
 
     const handlerOnsubmit = async (ev) => {
         ev.preventDefault();
+
+        
+
         var expresionRegular = /\n*;\n*/;
         const separarLigasMeet = ligasMeet.split(expresionRegular)
         // console.log(separarLigasMeet);
@@ -48,10 +54,21 @@ export const Maestros = () => {
         console.log(response.status);
         if (response.status === 200) {
             console.log('Datos almacenados DB');
-            alert('Datos almacenados');
+            Swal.fire({
+                icon:'success',
+                title:'Registro almacenado!',
+                text:'',
+                allowOutsideClick: false
+            });
             reset();
         } else {
             console.log('Error')
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar',
+                text: '¡Algo salio mal!',
+                allowOutsideClick: false
+            })
         }
 
     }
@@ -83,19 +100,19 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputNumTrabajador" className="col-sm-2 col-form-label">Número de Trabajador: </label>
                         <div className="col-sm-8">
-                            <input type="text" required className="form-control" id="inputNumTrabajador" name="numTrabajador" value={numTrabajador} onChange={handlerOnChange} />
+                            <input type="text" autoComplete="off" required className="form-control" id="inputNumTrabajador" name="numTrabajador" value={numTrabajador} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputNombre" className="col-sm-2 col-form-label">Nombre: </label>
                         <div className="col-sm-8">
-                            <input type="text" required className="form-control" id="inputNombre" name="nombre" value={nombre} onChange={handlerOnChange} />
+                            <input type="text" autoComplete="off" required className="form-control" id="inputNombre" name="nombre" value={nombre} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputApellidos" className="col-sm-2 col-form-label">Apellidos: </label>
                         <div className="col-sm-8">
-                            <input type="text" required className="form-control" id="inputNombre" name="apellidos" value={apellidos} onChange={handlerOnChange} />
+                            <input type="text" autoComplete="off" required className="form-control" id="inputApellidos" name="apellidos" value={apellidos} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -114,7 +131,7 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputTelefono" className="col-sm-2 col-form-label">Teléfono: </label>
                         <div className="col-sm-8">
-                            <input type="number" required className="form-control" id="inputTelefono" name="telefono" value={telefono} onChange={handlerOnChange} />
+                            <input type="number" autoComplete="off" required className="form-control" id="inputTelefono" name="telefono" value={telefono} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -133,13 +150,13 @@ export const Maestros = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputCorreo" className="col-sm-2 col-form-label">Correo electrónico: </label>
                         <div className="col-sm-8">
-                            <input type="email" required className="form-control" id="inputCorreo" name="correo" value={correo} onChange={handlerOnChange} />
+                            <input type="email" autoComplete="off" required className="form-control" id="inputCorreo" name="correo" value={correo} onChange={handlerOnChange} />
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputLigasMeet" className="col-sm-2 col-form-label">Ligas Meet: </label>
                         <div className="col-sm-8">
-                            <textarea required className="form-control" style={{ height: 150, resize: 'none' }} id="inputLigasMeet" name="ligasMeet" value={ligasMeet} onChange={handlerOnChange}>
+                            <textarea required  className="form-control" style={{ height: 150, resize: 'none' }} id="inputLigasMeet" name="ligasMeet" value={ligasMeet} onChange={handlerOnChange}>
                             </textarea>
                         </div>
                     </div>

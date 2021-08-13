@@ -135,9 +135,13 @@ export const escuelas = [
         escuela: 'Bachillerato No 34',
         grupos: ['A', 'B', 'C', 'D', 'E', 'F']
     },
+    {
+        escuela: 'Bachillerato No 35',
+        grupos: ['A', 'B', 'C', 'D', 'E', 'F']
+    },
 
 
 ];
 
-export const escolaridad = ['Licenciatura', 'Maestríaa', 'Doctorado'];
+export const escolaridad = ['Licenciatura', 'Maestría', 'Doctorado'];
 

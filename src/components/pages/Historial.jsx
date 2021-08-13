@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { Header } from './Header'
 import { LoginContext } from '../../context/LoginContext';
@@ -10,7 +11,7 @@ export const Historial = () => {
     const { login: data, maestros: dataMaestros } = useContext(LoginContext);
 
     const [showtabla, setShowTabla] = useState(false)
-    const [showError, setShowError] = useState(false)
+    // const [showError, setShowError] = useState(false)
     const [dataHistory, setDataHistory] = useState([])
 
     const [formState, handlerOnChange] = useForm({
@@ -26,7 +27,7 @@ export const Historial = () => {
         console.log('ingreso')
 
         setShowTabla(false);
-        setShowError(false)
+        // setShowError(false)
         const clave = dataMaestros.maestros.filter(resp => (`${resp.apellidos.trim()} ${resp.nombre.trim()}` === maestro.trim()))
 
 
@@ -38,10 +39,18 @@ export const Historial = () => {
             setDataHistory(dataHistorial)
             // console.log(dataHistory);
             setShowTabla(true)
-            setShowError(false)
+            // setShowError(false)
         } else {
             setShowTabla(false)
-            setShowError(true)
+            // setShowError(true)
+            Swal.fire({
+                icon: 'info',
+                title: 'El docente',
+                text: 'No tiene ninguna cita agendada',
+                // showConfirmButton: true,
+                // timer: 2800,
+                allowOutsideClick: false
+            })
         }
         console.log(dataHistorial.citashistorial);
 
@@ -67,10 +76,10 @@ export const Historial = () => {
             <div className="container mt-5">
                 <form onSubmit={onHistorialCitas}>
                     <div className="mb-3 row">
-                        <label htmlFor="inputMaestro" className="col-sm-2 col-form-label">Maestro</label>
-                        <div className="col-sm-7">
+                        {/* <label htmlFor="inputMaestro" className="col-sm-2 col-form-label">Maestro</label> */}
+                        <div className="col-sm-10">
                             <select className="form-select" aria-label="Default select example" id="inputMaestro" name="maestro" value={maestro} onChange={handlerOnChange} >
-                                <option value={'0000'} >Selecciona una opción</option>
+                                <option value={'0000'} >Selecciona un docente</option>
                                 {
                                     dataMaestros.maestros.map((resp) => (
                                         <option key={resp._id} value={`${resp.apellidos} ${resp.nombre}`}>{`${resp.apellidos} ${resp.nombre}`}</option>
@@ -78,7 +87,7 @@ export const Historial = () => {
                                 }
                             </select>
                         </div>
-                        <div className="col-2">
+                        <div className="col-sm-2">
                             <button type="submit" className="btn btn-success"><i className="fas fa-search"></i></button>
                         </div>
                     </div>
@@ -114,14 +123,14 @@ export const Historial = () => {
                         </tbody>
                     </table>
                 }
-                {
+                {/* {
                     (showError)
                     &&
                     (
                         <div className="alert alert-danger text-center">El docente <strong>{maestro}</strong> no tiene registrada ninguna cita</div>
 
                     )
-                }
+                } */}
             </div>
         </>
     )

@@ -11,18 +11,20 @@ import { Historial } from '../components/pages/Historial';
 import { Index } from '../components/pages/Index';
 import { Maestros } from '../components/pages/Maestros';
 import { Admin } from '../components/pages/Admin';
+import { CitaAgendada } from '../components/pages/CitaAgendada';
 
 export const CitasRouter = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/home" component={Index}></Route>
-                <Route path="/alumnos" component={Alumnos}></Route>
-                <Route path="/maestros" component={Maestros}></Route>
-                <Route path="/cita" component={Citas}></Route>
-                <Route path="/admin" component={Admin}></Route>
-                <Route path="/historial" component={Historial}></Route>
-                <Redirect to="/home" />
+                <Route exact path="/" component={Index}></Route>
+                <Route exact path="/alumnos" component={Alumnos}></Route>
+                <Route exact path="/maestros" component={Maestros}></Route>
+                <Route exact path="/cita" component={Citas}></Route>
+                <Route exact path="/admin" component={Admin}></Route>
+                <Route exact path="/historial" component={Historial}></Route>
+                <Route exact path="/cita-agendada" component={CitaAgendada}></Route>
+                <Redirect to="/" />
             </Switch>
         </Router>
     )
