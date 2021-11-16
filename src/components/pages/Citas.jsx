@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { LoginContext } from '../../context/LoginContext';
 import { Header } from './Header'
 import { useForm } from '../../hooks/useForm';
+import { temas } from '../../helpers/escuelas';
 
 
 
@@ -13,6 +14,7 @@ export const Citas = () => {
     const history = useHistory();
     // const [error, setError] = useState(false);
 
+    const temasMate = temas;
 
     const { login: data, alumno: estudiante, setLogin, setAlumno, maestros: dataMaestros } = useContext(LoginContext);
 
@@ -25,10 +27,10 @@ export const Citas = () => {
 
     if (month > 9) {
         fechaActual = `${year}-${month}-${day}`;
-    } else if (day > 9 ){
+    } else if (day > 9) {
         fechaActual = `${year}-0${month}-${day}`;
         console.log(fechaActual);
-    }else{
+    } else {
         fechaActual = `${year}-0${month}-0${day}`;
     }
 
@@ -39,6 +41,7 @@ export const Citas = () => {
         apellidos: data.givenName,
         maestro: '',
         fecha: '',
+        tema: '',
         hora: '09:00',
         bachillerato: estudiante.bachillerato,
         grado: estudiante.grado,
@@ -130,7 +133,7 @@ export const Citas = () => {
 
 
 
-    const { alumno, apellidos, maestro, fecha, hora, bachillerato, grado, grupo } = formState;
+    const { alumno, apellidos, maestro, tema, fecha, hora, bachillerato, grado, grupo } = formState;
 
     return (
         <>
@@ -179,6 +182,21 @@ export const Citas = () => {
                             <input type="time" step="1800" min="09:00" max="13:00" required className="form-control" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} />
                         </div>
                     </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputEscuela" className="col-sm-2 col-form-label">Temas</label>
+                        <div className="col-sm-8">
+                            <select className="form-select" aria-label="Default select example" id="inputTema" name="tema" value={tema}
+                                onChange={handlerOnChange} >
+                                <option >Selecciona un tema para la asesosía</option>
+                                {
+                                    temasMate.map((tema) => (
+                                        <option key={tema} value={tema} >{tema}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                    </div>
+
                     <div className="mb-3 row">
                         <label htmlFor="inputAlumno" className="col-sm-2 col-form-label">Nombre</label>
                         <div className="col-sm-8">

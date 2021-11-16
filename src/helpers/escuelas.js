@@ -9,7 +9,7 @@ export const escuelas = [
     },
     {
         escuela: 'Bachillerato No 3',
-        grupos: ['A', 'B', 'C', 'D','E']
+        grupos: ['A', 'B', 'C', 'D', 'E']
     },
     {
         escuela: 'Bachillerato No 4',
@@ -17,7 +17,7 @@ export const escuelas = [
     },
     {
         escuela: 'Bachillerato No 5',
-        grupos: ['A', 'B', 'C', 'D','E', 'F', 'G']
+        grupos: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     },
     {
         escuela: 'Bachillerato No 6',
@@ -29,11 +29,11 @@ export const escuelas = [
     },
     {
         escuela: 'Bachillerato No 8',
-        grupos: ['A', 'B', 'C', 'D','E', 'F']
+        grupos: ['A', 'B', 'C', 'D', 'E', 'F']
     },
     {
         escuela: 'Bachillerato No 9',
-        grupos: ['A', 'B', 'C', 'D','E']
+        grupos: ['A', 'B', 'C', 'D', 'E']
     },
     {
         escuela: 'Bachillerato No 10',
@@ -65,7 +65,7 @@ export const escuelas = [
     },
     {
         escuela: 'Bachillerato No 17',
-        grupos: ['A','B']
+        grupos: ['A', 'B']
     },
     {
         escuela: 'Bachillerato No 18',
@@ -77,7 +77,7 @@ export const escuelas = [
     },
     {
         escuela: 'Bachillerato No 20',
-        grupos: ['A', 'B', 'C', 'D','E', 'F']
+        grupos: ['A', 'B', 'C', 'D', 'E', 'F']
     },
     {
         escuela: 'Bachillerato No 21',
@@ -152,4 +152,6 @@ export const escuelas = [
 ];
 
 export const escolaridad = ['Licenciatura', 'Maestría', 'Doctorado'];
+
+export const temas = ['Leyes de los Exponentes', 'Productos notables', 'Simplificación de términos semejantes', 'Factorización', 'Divisiones algebraicas'];
 
