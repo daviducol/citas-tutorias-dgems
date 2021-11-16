@@ -90,7 +90,7 @@ export const Maestros = () => {
             <div className="index__caja">
                 <div className="row">
                     <div className="col">
-                        <h1 className="index__titulo">Registro de maestros</h1>
+                        <h1 className="index__titulo">Registro de docentes</h1>
                     </div>
                 </div>
             </div>

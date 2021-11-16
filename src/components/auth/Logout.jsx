@@ -11,7 +11,7 @@ export const Logout = () => {
 
     return (
         <>
-            <i className="fas fa-sign-out-alt text-danger" onClick={cerrarSesion} style={{ cursor: 'pointer', fontSize: 25 }}></i>
+            <i className="fas fa-sign-out-alt" onClick={cerrarSesion} style={{ cursor: 'pointer', fontSize: 25, color:'#BC312C' }}></i>
         </>
     )
 }
