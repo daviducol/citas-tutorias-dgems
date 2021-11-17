@@ -11,6 +11,7 @@ import { temas } from '../../helpers/escuelas';
 
 
 export const Citas = () => {
+
     const history = useHistory();
     // const [error, setError] = useState(false);
 
@@ -23,7 +24,8 @@ export const Citas = () => {
     const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    console.log(month);
+    // const semana = date.get();
+    // console.log(semana);
 
     if (month > 9) {
         fechaActual = `${year}-${month}-${day}`;
@@ -33,16 +35,46 @@ export const Citas = () => {
     } else {
         fechaActual = `${year}-0${month}-0${day}`;
     }
+    const numDia = (fecha) => {
+        const dias = [
+            'lunes',
+            'martes',
+            'miercoles',
+            'jueves',
+            'viernes',
+            'sabado',
+            'domingo',
+        ];
+        const numeroDia = new Date(fecha).getDay();
+        const nombreDia = dias[numeroDia];
+        console.log(numeroDia)
+        console.log(nombreDia)
+        return nombreDia;
+    }
+    const numDia2 = (fecha) => {
+        const dias = [
+            'lunes',
+            'martes',
+            'miercoles',
+            'jueves',
+            'viernes',
+            'sabado',
+            'domingo',
+        ];
+        const numeroDia = new Date(fecha).getDay();
 
+
+        return numeroDia;
+    }
     // console.log(dataMaestros)
 
     const [formState, handlerOnChange] = useForm({
         alumno: data.familyName,
         apellidos: data.givenName,
         maestro: '',
-        fecha: '',
+        fecha: fechaActual,
         tema: '',
-        hora: '09:00',
+        hora: '',
         bachillerato: estudiante.bachillerato,
         grado: estudiante.grado,
         grupo: estudiante.grupo
@@ -54,12 +86,16 @@ export const Citas = () => {
         console.log(dataMaestros);
         console.log(maestro);
 
+        const numLiga = numDia2(formState.fecha)
+
+
         const clave = dataMaestros.maestros.filter(resp => (`${resp.apellidos.trim()} ${resp.nombre.trim()}` === maestro.trim()))
         console.log(clave);
-
+        console.log(clave[0].ligasMeet);
         const crearCita = {
             ...formState,
-            ligasMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
+            // ligasMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
+            ligasMeet: `${clave[0].ligasMeet[numLiga]}`,
             correoAlumno: estudiante.email,
             numTrabajador: clave[0].numTrabajador,
         }
@@ -72,7 +108,8 @@ export const Citas = () => {
         }
         const eviarCorreo = {
             correo: estudiante.email,
-            ligaMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
+            correoDocente: maestro.correo,
+            ligaMeet: `${clave[0].ligasMeet[numLiga]}`,
             maestro: formState.maestro,
             fecha: formState.fecha,
             hora: formState.hora,
@@ -148,13 +185,6 @@ export const Citas = () => {
             </div>
             {/* Formulario para la cita */}
             <div className="container mt-5">
-                {/* {
-                    (error) && (
-                        <div className="alert alert-danger text-center animate__animated animate__fadeIn" role="alert">
-                            <strong> Horario no disponible</strong>
-                        </div>
-                    )
-                } */}
 
                 <form onSubmit={agendarCita}>
                     <div className="mb-3 row">
@@ -173,13 +203,38 @@ export const Citas = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputFecha" className="col-sm-2 col-form-label">Fecha</label>
                         <div className="col-sm-8">
-                            <input type="date" min={`${fechaActual}`} max="2021-12-15" className="form-control" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} />
+
+                            <input type="date" className="form-control" step="1" min={fechaActual} max="2021-12-04" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} />
+
+                            {/* <select className="form-select" aria-label="Default select example" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} >
+                                <option >Selecciona una opción</option>
+                                {
+                                    dataMaestros.maestros.map((resp) => (`${resp.apellidos} ${resp.nombre}`) === maestro
+                                        && resp.asesorias.map((asesoria, index) => {
+                                            return <option key={`${asesoria.dia} ${day} `} >{`${asesoria.dia} ${day} `}</option>
+                                        }))
+                                }
+                            </select> */}
+                            {/* <p> Próxima cita (solo los lunes): <input type="date" name="proximacita" step="7" min="2015-02-16">
+                                <input type="submit" value="Enviar datos"></p> */}
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputHora" className="col-sm-2 col-form-label">Hora</label>
                         <div className="col-sm-8">
-                            <input type="time" step="1800" min="09:00" max="13:00" required className="form-control" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} />
+                            <select className="form-select" aria-label="Default select example" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} >
+                                <option >Selecciona una opción</option>
+                                {
+
+                                    dataMaestros.maestros.map(resp => (`${resp.apellidos} ${resp.nombre}`) === maestro
+                                        && resp.asesorias.map(asesoria => {
+
+                                            return asesoria.dia === numDia(fecha)
+                                                && asesoria.horario.map(h => <option key={h}>{h}</option>)
+                                        }))
+                                }
+                            </select>
+
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -227,18 +282,6 @@ export const Citas = () => {
                             <input type="text" disabled className="form-control" id="inputGrupo" name="grupo" value={grupo} onChange={handlerOnChange} />
                         </div>
                     </div>
-                    {/* <div className="mb-3 row">
-                        <label htmlFor="inputNumTrabajador" className="col-sm-2 col-form-label">Trabajador</label>
-                        <div className="col-sm-8">
-                            {
-                                dataMaestros.maestros.map(resp =>
-                                    (`${resp.apellidos} ${resp.nombre}` === maestro)
-                                    && <input type="text" key={resp.numTrabajador} disabled className="form-control" id="inputNumTrabajador" name="numTrabajador" value={numTrabajador} placeholder={resp.numTrabajador} onChange={handlerOnChange} />
-
-                                )
-                            }
-                        </div>
-                    </div> */}
                     <div className="d-flex justify-content-center mt-5 mb-5">
                         <button type="submit" className="btn btn-success">Agendar cita</button>
                     </div>

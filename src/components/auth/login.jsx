@@ -17,11 +17,11 @@ export const Login = () => {
         if (!resp.profileObj) {
             return console.log('error', resp)
         }
-        
+
         // console.log(resp)
         // console.log(resp.profileObj)
-        
-        
+
+
         // if((resp.profileObj.email).includes('ucol.mx')){
         //     console.log('CORREO UNIVERSITARIO');
         // }else{
@@ -34,7 +34,7 @@ export const Login = () => {
             const dataMaestros = await responseMaestros.json();
             setMaestros(dataMaestros)
             history.replace('/admin');
-        } else if((resp.profileObj.email).includes('ucol.mx')) {
+        } else if ((resp.profileObj.email).includes('ucol.mx')) {
             setLogin(resp.profileObj)
             const requestOptions = {
                 method: 'GET',
@@ -61,7 +61,7 @@ export const Login = () => {
                 history.push('/alumnos');
             }
 
-        }else {
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Error en el correo',
@@ -81,8 +81,8 @@ export const Login = () => {
     return (
         <>
             <GoogleLogin
-                // clientId="446921114847-7tc235a9nk94mvpdgfhv9on3nqp3nbpm.apps.googleusercontent.com" // Produccion
-                clientId="446921114847-4siqf6e68ke3pngpllouehr5sr47luto.apps.googleusercontent.com" // Desarrollo
+                clientId="446921114847-7tc235a9nk94mvpdgfhv9on3nqp3nbpm.apps.googleusercontent.com" // Produccion
+                // clientId="446921114847-4siqf6e68ke3pngpllouehr5sr47luto.apps.googleusercontent.com" // Desarrollo
                 buttonText="Iniciar Sesión"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
