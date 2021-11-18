@@ -31,8 +31,15 @@ $footer: #15235F; */
         0 3px 4px rgb(145, 145, 145);
     text-transform: uppercase;
 }
+.index__bienvenida{
+    font-size: 45px;
+    letter-spacing: 10px;
+}
 .index__texto {
     font-family:  Helvetica,Arial, sans-serif;
+    color:#353434;
+    font-size: 25px;
+    line-height: 1.5;
 }
     
 .container_texto{
@@ -48,4 +55,7 @@ $footer: #15235F; */
     font-weight: bold;
     margin: 0 5px 20px 5px;
     
+}
+.index__btnLogin{
+    margin-bottom: 30px;
 }

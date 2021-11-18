@@ -31,7 +31,7 @@ export const Citas = () => {
         fechaActual = `${year}-${month}-${day}`;
     } else if (day > 9) {
         fechaActual = `${year}-0${month}-${day}`;
-        console.log(fechaActual);
+        // console.log(fechaActual);
     } else {
         fechaActual = `${year}-0${month}-0${day}`;
     }
@@ -47,20 +47,12 @@ export const Citas = () => {
         ];
         const numeroDia = new Date(fecha).getDay();
         const nombreDia = dias[numeroDia];
-        console.log(numeroDia)
-        console.log(nombreDia)
+        // console.log(numeroDia)
+        // console.log(nombreDia)
         return nombreDia;
     }
     const numDia2 = (fecha) => {
-        const dias = [
-            'lunes',
-            'martes',
-            'miercoles',
-            'jueves',
-            'viernes',
-            'sabado',
-            'domingo',
-        ];
+
         const numeroDia = new Date(fecha).getDay();
 
 
@@ -83,15 +75,15 @@ export const Citas = () => {
 
     const agendarCita = async (ev) => {
         ev.preventDefault();
-        console.log(dataMaestros);
-        console.log(maestro);
+        // console.log(dataMaestros);
+        // console.log(maestro);
 
         const numLiga = numDia2(formState.fecha)
 
 
         const clave = dataMaestros.maestros.filter(resp => (`${resp.apellidos.trim()} ${resp.nombre.trim()}` === maestro.trim()))
-        console.log(clave);
-        console.log(clave[0].ligasMeet);
+        // console.log(clave);
+        // console.log(clave[0].ligasMeet);
         const crearCita = {
             ...formState,
             // ligasMeet: 'https://meet.google.com/xzn-ycxd-qjo?authuser=0',
@@ -99,7 +91,7 @@ export const Citas = () => {
             correoAlumno: estudiante.email,
             numTrabajador: clave[0].numTrabajador,
         }
-        console.log(crearCita);
+        // console.log(crearCita);
 
         const requestOptions = {
             method: 'POST',
@@ -121,13 +113,13 @@ export const Citas = () => {
         }
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
         const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/citas', requestOptions);
-        const dataCita = await response.json();
-        console.log(dataCita);
+        await response.json();
+        // console.log(dataCita);
         // console.log(response.status);
         // console.log(responseEmail.status);
         // console.log(dataEmail);
         if (response.status === 200) {
-            console.log('ingreso')
+            // console.log('ingreso')
             const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail);
             await responseEmail.json();
             setLogin([]);
@@ -157,7 +149,7 @@ export const Citas = () => {
             //     setError(false)
             // }, 3500)
         }
-        console.log(data)
+        // console.log(data)
     }
 
 
@@ -190,7 +182,7 @@ export const Citas = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputGenero" className="col-sm-2 col-form-label">Maestro</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputGenero" name="maestro" value={maestro} onChange={handlerOnChange} >
+                            <select className="form-select" required={true} aria-label="Default select example" id="inputGenero" name="maestro" value={maestro} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
                                     dataMaestros.maestros.map((resp) => (
@@ -204,7 +196,7 @@ export const Citas = () => {
                         <label htmlFor="inputFecha" className="col-sm-2 col-form-label">Fecha</label>
                         <div className="col-sm-8">
 
-                            <input type="date" className="form-control" step="1" min={fechaActual} max="2021-12-04" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} />
+                            <input type="date" className="form-control" required={true} step="1" min={fechaActual} max="2021-12-04" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} />
 
                             {/* <select className="form-select" aria-label="Default select example" id="inputFecha" name="fecha" value={fecha} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
@@ -222,7 +214,7 @@ export const Citas = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputHora" className="col-sm-2 col-form-label">Hora</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} >
+                            <select className="form-select" required={true} aria-label="Default select example" id="inputHora" name="hora" value={hora} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
 
@@ -240,9 +232,9 @@ export const Citas = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputEscuela" className="col-sm-2 col-form-label">Temas</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputTema" name="tema" value={tema}
+                            <select className="form-select" required aria-label="Default select example" id="inputTema" name="tema" value={tema}
                                 onChange={handlerOnChange} >
-                                <option >Selecciona un tema para la asesosía</option>
+                                <option >Selecciona un tema para la asesoría</option>
                                 {
                                     temasMate.map((tema) => (
                                         <option key={tema} value={tema} >{tema}</option>

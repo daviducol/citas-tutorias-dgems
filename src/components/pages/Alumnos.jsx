@@ -29,7 +29,7 @@ export const Alumnos = () => {
 
 
     if (!data.familyName) {
-        console.log(data)
+        // console.log(data)
         return (
             <Redirect to="/home" />
         );
@@ -46,9 +46,9 @@ export const Alumnos = () => {
         // const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
         const response = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/alumnos', requestOptions);
         await response.json();
-        console.log(response.status);
+        // console.log(response.status);
         if (response.status === 200) {
-            console.log('ingreso')
+            // console.log('ingreso')
             const { nombre, apellidos, correo: email, bachillerato, grado, grupo } = formState
             const registro = {
                 nombre,
@@ -59,7 +59,7 @@ export const Alumnos = () => {
                 grupo
             }
             setAlumno(registro);
-            console.log(registro);
+            // console.log(registro);
             history.replace('/cita');
 
         }
@@ -69,6 +69,13 @@ export const Alumnos = () => {
     return (
         <>
             <Header />
+            <div className="index__caja">
+                <div className="row">
+                    <div className="col">
+                        <h1 className="index__titulo">Registra tus datos</h1>
+                    </div>
+                </div>
+            </div>
             <div className="container mt-5">
                 <form onSubmit={handlerOnsubmit}>
                     <div className="mb-3 row">
@@ -86,10 +93,11 @@ export const Alumnos = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputGenero" className="col-sm-2 col-form-label">Genero</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputGenero" name="genero" value={genero} onChange={handlerOnChange} >
+                            <select className="form-select" required aria-label="Default select example" id="inputGenero" name="genero" value={genero} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 <option value="F">Femenino</option>
                                 <option value="M">Masculino</option>
+                                <option value="s/n">Sin especificar</option>
                             </select>
                         </div>
                     </div>
@@ -102,7 +110,7 @@ export const Alumnos = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputEscuela" className="col-sm-2 col-form-label">Escuela</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputEscuela" name="bachillerato" value={bachillerato}
+                            <select className="form-select" required aria-label="Default select example" id="inputEscuela" name="bachillerato" value={bachillerato}
                                 onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
@@ -116,18 +124,18 @@ export const Alumnos = () => {
                     <div className="mb-3 row">
                         <label htmlFor="inputGrado" className="col-sm-2 col-form-label">Semestre</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputGrado" name="grado" value={grado} onChange={handlerOnChange} >
+                            <select className="form-select" required aria-label="Default select example" id="inputGrado" name="grado" value={grado} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
-                                <option value="1er">Primer semestre</option>
-                                <option value="3er">Tercer semestre</option>
-                                <option value="5to">Quinto semestre</option>
+                                <option value="1erSemestre">Primer semestre</option>
+                                {/* <option value="3er">Tercer semestre</option>
+                                <option value="5to">Quinto semestre</option> */}
                             </select>
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputGrupo" className="col-sm-2 col-form-label">Grupo</label>
                         <div className="col-sm-8">
-                            <select className="form-select" aria-label="Default select example" id="inputGrupo" name="grupo" value={grupo} onChange={handlerOnChange} >
+                            <select className="form-select" required aria-label="Default select example" id="inputGrupo" name="grupo" value={grupo} onChange={handlerOnChange} >
                                 <option >Selecciona una opción</option>
                                 {
                                     bachilleratos.map(resp => resp.escuela === bachillerato
