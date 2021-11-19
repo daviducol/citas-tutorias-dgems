@@ -100,6 +100,9 @@ export const Citas = () => {
         }
         const eviarCorreo = {
             correo: estudiante.email,
+            alumno: `${formState.alumno} ${formState.apellidos}`,
+            tema: formState.tema,
+            bachillerato: formState.bachillerato,
             correoDocente: maestro.correo,
             ligaMeet: `${clave[0].ligasMeet[numLiga]}`,
             maestro: formState.maestro,

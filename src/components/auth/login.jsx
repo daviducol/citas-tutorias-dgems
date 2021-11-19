@@ -28,7 +28,7 @@ export const Login = () => {
         //     console.log('CORREO EXTERNO');
         // }
 
-        if (resp.profileObj.email === 'davidglez.ucol@gmail.com') {
+        if (resp.profileObj.email === 'davidglez.ucol@gmail.com' || resp.profileObj.email === 'rglezb@gmail.com' ) {
             setLogin(resp.profileObj)
             const responseMaestros = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/maestros');
             const dataMaestros = await responseMaestros.json();
