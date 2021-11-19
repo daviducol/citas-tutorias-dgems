@@ -103,7 +103,7 @@ export const Citas = () => {
             alumno: `${formState.alumno} ${formState.apellidos}`,
             tema: formState.tema,
             bachillerato: formState.bachillerato,
-            correoDocente: maestro.correo,
+            correoDocente: clave[0].correo,
             ligaMeet: `${clave[0].ligasMeet[numLiga]}`,
             maestro: formState.maestro,
             fecha: formState.fecha,
@@ -123,7 +123,9 @@ export const Citas = () => {
         // console.log(dataEmail);
         if (response.status === 200) {
             // console.log('ingreso')
-            const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail);
+            // const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail); // Production
+            const responseEmail = await fetch('http://192.168.0.13:3500/api/correo/send-email', requestEmail); // Desarrollo
+            // console.log(eviarCorreo);
             await responseEmail.json();
             setLogin([]);
             setAlumno([]);
