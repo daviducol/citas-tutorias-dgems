@@ -123,8 +123,8 @@ export const Citas = () => {
         // console.log(dataEmail);
         if (response.status === 200) {
             // console.log('ingreso')
-            // const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail); // Production
-            const responseEmail = await fetch('http://192.168.0.13:3500/api/correo/send-email', requestEmail); // Desarrollo
+            const responseEmail = await fetch('https://citas-tutorias-dgems.herokuapp.com/api/correo/send-email', requestEmail); // Production
+            // const responseEmail = await fetch('http://192.168.0.13:3500/api/correo/send-email', requestEmail); // Desarrollo
             // console.log(eviarCorreo);
             await responseEmail.json();
             setLogin([]);
